@@ -31,7 +31,8 @@
 		"build": "tsup",
 		"lint": "biome format --write src/",
 		"check": "tsc --noEmit",
-		"test": "bun test"
+		"test": "bun test",
+		"release": "commit-and-tag-version"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.2.7",
