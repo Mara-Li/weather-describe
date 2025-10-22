@@ -1,3 +1,5 @@
+import type { Language } from "./i18next.ts";
+
 export type Weather = {
 	temperature_2m?: number;
 	apparent_temperature?: number;
@@ -45,17 +47,9 @@ export const WEATHER_CODE_EMOJI: Record<number, string> = {
 	99: "⛈️", // Thunderstorm with heavy hail
 };
 
-export type DescribeOptions = {
-	/**
-	 * Timezone to use for the weather description (default: "auto")
-	 */
-	timezone?: string;
-	/**
-	 * Optional AbortSignal to cancel the request
-	 */
-	signal?: AbortSignal;
-	/**
-	 * City name to include in the description (optional)
-	 */
-	cityName?: string;
-};
+export interface WeatherNowOptions {
+	lang?: Language;
+	timezone?: string; // "auto" par défaut
+	defaultCity?: string; // pratique pour un bot
+	cacheTtlMs?: number; // simple cache mémoire
+}

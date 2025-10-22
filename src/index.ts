@@ -1,2 +1,1 @@
-export * from "./describe.ts";
-export * from "./emoji.ts";
+export { WeatherDescribe } from "./WeatherDescribe.ts";
