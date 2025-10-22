@@ -21,14 +21,14 @@
 			"73": "Chutes de neige modérées",
 			"75": "Fortes chutes de neige",
 			"77": "Neige en grains",
-			"80": "Faibles averses",
-			"81": "Averses modérées",
-			"82": "Fortes averses",
-			"85": "Faibles averses de neige",
-			"86": "Fortes averses de neige",
+			"80": "Faible averse",
+			"81": "Averse modérée",
+			"82": "Forte averse",
+			"85": "Faible averse de neige",
+			"86": "Forte averse de neige",
 			"95": "Orage",
-			"96": "Orage avec légère grêle",
-			"99": "Orage avec forte grêle"
+			"96": "Orage avec une légère grêle",
+			"99": "Orage avec une forte grêle"
 		}
 	},
 	"dir": {
