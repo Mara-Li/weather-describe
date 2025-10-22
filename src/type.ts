@@ -1,6 +1,10 @@
 import type { Language } from "./i18next.ts";
 
 export type Weather = {
+	/**
+	 * See Open Weather API documentation for details
+	 * https://open-meteo.com/en/docs
+	 */
 	temperature_2m?: number;
 	apparent_temperature?: number;
 	weathercode?: number;
@@ -48,8 +52,22 @@ export const WEATHER_CODE_EMOJI: Record<number, string> = {
 };
 
 export interface WeatherNowOptions {
+	/**
+	 * Langue for the weather description
+	 */
 	lang?: Language;
-	timezone?: string; // "auto" par défaut
-	defaultCity?: string; // pratique pour un bot
-	cacheTtlMs?: number; // simple cache mémoire
+	/**
+	 * Timezone for the weather data
+	 * @default auto
+	 */
+	timezone?: string;
+	/**
+	 * Default city if no location is provided
+	 */
+	defaultCity?: string;
+	/**
+	 * Cache duration in milliseconds for weather data
+	 * @default 0 (no caching)
+	 */
+	cacheTtlMs?: number;
 }

@@ -10,27 +10,80 @@ import {
 } from "./type.ts";
 
 export class WeatherDescribe {
+	/**
+	 * Lang usage  for descriptions.
+	 * @private
+	 * @default "en"
+	 */
 	private lang: Language;
+	/**
+	 * Timezone to use for fetching weather.
+	 * @private
+	 * @default "auto"
+	 */
 	private timezone: string;
+	/**
+	 * Default city name for byCity() if none provided.
+	 * @private
+	 */
 	private readonly defaultCity?: string;
+	/**
+	 * Cache TTL in milliseconds.
+	 * @private
+	 * @default 0 (no caching)
+	 */
 	private readonly cacheTtl: number;
+	/**
+	 * i18n initialized flag.
+	 * @private
+	 */
 	private inited = false;
-	private cache = new Map<string, { at: number; cur: Weather }>();
+	/**
+	 * Cache for fetched weather data.
+	 * @private
+	 */
+	private cache = new Map<
+		string,
+		{
+			/**
+			 * Timestamp of cache entry.
+			 */
+			at: number;
+			/**
+			 * Cached current weather data.
+			 */
+			cur: Weather;
+		}
+	>();
 
 	constructor(opts: WeatherNowOptions = {}) {
-		this.lang = opts.lang ?? "fr";
+		this.lang = opts.lang ?? "en";
 		this.timezone = opts.timezone ?? "auto";
 		this.defaultCity = opts.defaultCity;
 		this.cacheTtl = opts.cacheTtlMs ?? 0;
 	}
 
+	/**
+	 * Set language for descriptions
+	 * @param lang {Language} Language code
+	 */
 	setLanguage(lang: Language) {
 		this.lang = lang;
 	}
+
+	/**
+	 * Set timezone for fetching weather
+	 * @param tz {string} Timezone string
+	 */
 	setTimezone(tz: string) {
 		this.timezone = tz;
 	}
 
+	/**
+	 * Ensure i18n is initialized for the given language
+	 * @param lang {Language} Language code
+	 * @private
+	 */
 	private async ensureI18n(lang: Language) {
 		if (!this.inited) {
 			await i18next.init({
@@ -47,7 +100,13 @@ export class WeatherDescribe {
 		}
 	}
 
-	private toCompass(deg: number) {
+	/**
+	 * Convert degrees to compass direction
+	 * @param deg {number} Degrees
+	 * @private
+	 * @returns {string | undefined} Compass direction
+	 */
+	private toCompass(deg: number): string | undefined {
 		const d = [
 			"N",
 			"NNE",
@@ -69,7 +128,14 @@ export class WeatherDescribe {
 		return d[Math.round((((deg % 360) + 360) % 360) / 22.5) % 16];
 	}
 
-	private describe(current: Weather, city?: string) {
+	/**
+	 * Describe the current weather in text
+	 * @param current {Weather} Current weather data
+	 * @param city {string} Optional city name
+	 * @private
+	 * @returns {string} Description text
+	 */
+	private describe(current: Weather, city?: string): string {
 		const t = i18next.t.bind(i18next);
 		const parts: string[] = [];
 
@@ -145,7 +211,19 @@ export class WeatherDescribe {
 		return parts.join(" · ").replaceAll("&#x2F;", "/");
 	}
 
-	private async fetchCurrent(lat: number, lon: number, lang: Language) {
+	/**
+	 * Fetch current weather data for given coordinates and language
+	 * @param lat {number}
+	 * @param lon {number}
+	 * @param lang {Language}
+	 * @private
+	 * @returns {Promise<Weather>} Current weather data
+	 */
+	private async fetchCurrent(
+		lat: number,
+		lon: number,
+		lang: Language,
+	): Promise<Weather> {
 		const key = `${lat},${lon},${lang},${this.timezone}`;
 		const now = Date.now();
 		const cached = this.cache.get(key);
@@ -192,15 +270,50 @@ export class WeatherDescribe {
 		return obj;
 	}
 
-	private emojiFromCode(code: number) {
+	/**
+	 * Get emoji for weather code
+	 * @param code {number}
+	 * @private
+	 * @returns {string} Emoji character
+	 */
+	private emojiFromCode(code: number): string {
 		return WEATHER_CODE_EMOJI[code] ?? "❔";
 	}
 
+	/**
+	 * Get weather description by coordinates
+	 * @param lat {number} Latitude
+	 * @param lon {number} Longitude
+	 * @param opts { lang?: Language; cityName?: string } Optional parameters
+	 * @returns {Promise<{ emoji: string; text: string; current: Weather }>} Weather description
+	 */
 	async byCoords(
 		lat: number,
 		lon: number,
-		opts?: { lang?: Language; cityName?: string },
-	) {
+		opts?: {
+			/**
+			 * Language for description
+			 */
+			lang?: Language;
+			/**
+			 * City name to include in description
+			 */
+			cityName?: string;
+		},
+	): Promise<{
+		/**
+		 * Emoji representing the weather condition
+		 */
+		emoji: string;
+		/**
+		 * Textual weather description
+		 */
+		text: string;
+		/**
+		 * Current weather data
+		 */
+		current: Weather;
+	}> {
 		const lang = opts?.lang ?? this.lang;
 		await this.ensureI18n(lang);
 		const cur = await this.fetchCurrent(lat, lon, lang);
@@ -209,10 +322,38 @@ export class WeatherDescribe {
 		return { emoji, text, current: cur };
 	}
 
+	/**
+	 * Get weather description by city name
+	 * @param city {string} City name
+	 * @param opts { countryCode?: string; lang?: Language } Optional parameters
+	 * @returns {Promise<{ emoji: string; text: string; current: Weather }>} Weather description
+	 */
 	async byCity(
 		city?: string,
-		opts?: { countryCode?: string; lang?: Language },
-	) {
+		opts?: {
+			/**
+			 * Country code to refine geocoding (e.g., "FR" for France)
+			 */
+			countryCode?: string;
+			/**
+			 * Language for description
+			 */
+			lang?: Language;
+		},
+	): Promise<{
+		/**
+		 * Emoji representing the weather condition
+		 */
+		emoji: string;
+		/**
+		 * Textual weather description
+		 */
+		text: string;
+		/**
+		 * Current weather data
+		 */
+		current: Weather;
+	}> {
 		const target = city ?? this.defaultCity;
 		if (!target) throw new Error("Aucune ville fournie.");
 		const lang = opts?.lang ?? this.lang;
