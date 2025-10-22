@@ -47,21 +47,49 @@
 		"W": "west",
 		"WNW": "west-northwest",
 		"NW": "northwest",
-		"NNW": "north-northwest"
+		"NNW": "north-northwest",
+		"short": {
+			"N": "N",
+			"NNE": "NNE",
+			"NE": "NE",
+			"ENE": "ENE",
+			"E": "E",
+			"ESE": "ESE",
+			"SE": "SE",
+			"SSE": "SSE",
+			"S": "S",
+			"SSW": "SSW",
+			"SW": "SW",
+			"WSW": "WSW",
+			"W": "W",
+			"WNW": "WNW",
+			"NW": "NW",
+			"NNW": "NNW"
+		}
 	},
 	"sentence": {
-		"head": "{{city}}It is {{temp}}°C{{cond}}",
-		"city": "In {{city}} · ",
+		"head": {
+			"no_city": {
+				"long": "It’s currently {{temp}}°C{{cond}}.",
+				"short": ""
+			},
+			"with_city": {
+				"long": "In {{city}}, it’s currently {{temp}}°C{{cond}}.",
+				"short": "{{city}}: "
+			}
+		},
+		"city": "In {{city}}, ",
 		"cond": " ({{cond}})",
-		"feels": "feels like {{feels}}°C",
-		"wind": "wind {{speed}} km/h{{dir}}{{gust}}",
-		"wind.dir": " from the {{dir}}",
-		"wind.gust": " (gusts {{gust}} km/h)",
-		"precip.none": "no precipitation",
-		"precip.rain": "precipitation: {{mm}} mm",
-		"precip.snow": "snow: {{cm}} cm",
-		"humidity": "humidity {{pct}}%",
-		"clouds": "cloud cover {{pct}}%",
-		"visibility": "visibility {{km}} km"
+		"feels": "It feels like {{feels}}°C.",
+		"wind": "Winds are blowing from the {{dir}} at {{speed}} km/h{{gust}}.",
+		"wind.dir": "{{dir}}",
+		"wind.gust": " with gusts up to {{gust}} km/h",
+		"precip.none": "No precipitation expected.",
+		"precip.rain": "Rainfall of around {{mm}} mm.",
+		"precip.snow": "Snow accumulation near {{cm}} cm.",
+		"humidity": "Humidity at {{pct}}%.",
+		"clouds": "Cloud cover about {{pct}}%.",
+		"visibility": "Visibility around {{km}} km.",
+		"short": "{{city}}{{temp}}°C, {{cond}}, wind {{speed}} km/h ({{dir}})"
 	}
 }

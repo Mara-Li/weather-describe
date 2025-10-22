@@ -92,6 +92,12 @@ type APIOptions = {
 	 * Language for the text description
 	 */
 	lang?: Language;
+	/**
+	 * Short description without detailed info
+	 * @default false
+	 * @example true => `15°C, light rain, wind 10 km/h NE`
+	 */
+	short?: boolean;
 };
 
 export type ByCoordsOptions = APIOptions & {

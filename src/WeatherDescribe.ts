@@ -152,8 +152,10 @@ export class WeatherDescribe {
 				? t(`weather.code.${current.weathercode}`)
 				: undefined;
 
-		const head = t("sentence.head", {
-			city: city ? t("sentence.city", { city }) : undefined,
+		const headKey = city ? "sentence.head.with_city" : "sentence.head.no_city";
+
+		const head = t(`${headKey}.long`, {
+			city,
 			temp:
 				typeof current.temperature_2m === "number"
 					? Math.round(current.temperature_2m)
@@ -216,7 +218,49 @@ export class WeatherDescribe {
 			);
 
 		// unescape éventuel du slash HTML
-		return parts.join(" · ").replaceAll("&#x2F;", "/");
+		return parts.join(" ").replaceAll("&#x2F;", "/");
+	}
+
+	/**
+	 * Short description of current weather
+	 * @param current {Weather} Current weather data
+	 * @param city
+	 * @private
+	 * @returns {string} Short description
+	 * @example "15°C, light rain, wind 10 km/h NE"
+	 */
+	private shortDescribe(current: Weather, city?: string): string {
+		const t = i18next.t.bind(i18next);
+		const temp =
+			typeof current.temperature_2m === "number"
+				? Math.round(current.temperature_2m)
+				: undefined;
+		const cond =
+			typeof current.weathercode === "number"
+				? t(`weather.code.${current.weathercode}`)
+				: undefined;
+
+		const condTest = cond ? (cond.toLowerCase?.() ?? cond) : undefined;
+
+		const dir =
+			typeof current.wind_direction_10m === "number"
+				? t(`dir.short.${this.toCompass(current.wind_direction_10m)}`)
+				: undefined;
+
+		const speed =
+			typeof current.wind_speed_10m === "number"
+				? Math.round(current.wind_speed_10m * 10) / 10
+				: undefined;
+
+		const cityKey = city ? "sentence.head.with_city" : "sentence.head.no_city";
+
+		return t("sentence.short", {
+			city: t(`${cityKey}.short`, { city }),
+			temp,
+			cond: condTest,
+			dir,
+			speed,
+		});
 	}
 
 	/**
@@ -303,7 +347,9 @@ export class WeatherDescribe {
 		const lang = opts?.lang ?? this.lang;
 		await this.ensureI18n(lang);
 		const cur = await this.fetchCurrent(lat, lon, lang);
-		const text = this.describe(cur, opts?.cityName);
+		const text = !opts?.short
+			? this.describe(cur, opts?.cityName)
+			: this.shortDescribe(cur, opts?.cityName);
 		const emoji = this.emojiFromCode(Math.round(cur.weathercode ?? -1));
 		return { emoji, text, current: cur };
 	}
@@ -343,6 +389,7 @@ export class WeatherDescribe {
 		return this.byCoords(best.latitude, best.longitude, {
 			lang,
 			cityName: target,
+			short: opts?.short,
 		});
 	}
 }
