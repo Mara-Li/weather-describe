@@ -84,7 +84,7 @@
 		"wind": "Le vent souffle depuis {{dir}} à {{speed}} km/h{{gust}}.",
 		"wind.dir": "{{dir}}",
 		"wind.gust": ", avec des rafales pouvant atteindre {{gust}} km/h",
-		"precip.none": "Aucune précipitation attendue.",
+		"precip.none": "Aucune précipitation n'est attendue.",
 		"precip.rain": "Précipitations d’environ {{mm}} mm.",
 		"precip.snow": "Chutes de neige estimées à {{cm}} cm.",
 		"humidity": "Humidité à {{pct}}%.",
