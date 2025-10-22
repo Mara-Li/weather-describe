@@ -1,6 +1,21 @@
 import type { Weather } from "../src/type.ts";
 
-export function baseLyon(overrides: Weather = {}): Weather {
+// Types pour les mocks d'Open-Meteo
+export interface OpenMeteoVariable {
+	value: () => number | undefined;
+}
+
+export interface OpenMeteoCurrent {
+	variables: (index: number) => OpenMeteoVariable;
+}
+
+export interface OpenMeteoResponse {
+	current: () => OpenMeteoCurrent;
+}
+
+export type RequestInfo = string | URL | Request;
+
+export function baseLyon(overrides: Partial<Weather> = {}): Weather {
 	return {
 		temperature_2m: 12.4,
 		apparent_temperature: 11.8,
@@ -37,15 +52,13 @@ export function toCurrentArray(cur: Weather): number[] {
 	];
 }
 
-export type RequestInfo = string | URL | Request;
-
-export function makeOpenMeteoResponse(values: number[]) {
+export function makeOpenMeteoResponse(values: number[]): OpenMeteoResponse[] {
 	return [
 		{
-			current() {
+			current(): OpenMeteoCurrent {
 				return {
-					variables(i: number) {
-						return { value: () => values[i] };
+					variables(i: number): OpenMeteoVariable {
+						return { value: () => (values[i] ?? 0) as number };
 					},
 				};
 			},

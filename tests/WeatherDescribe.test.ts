@@ -5,22 +5,37 @@ import {
 	baseLyon,
 	makeGeoJson,
 	makeOpenMeteoResponse,
+	type OpenMeteoResponse,
 	type RequestInfo,
 	toCurrentArray,
 } from "./helper";
 
+// Types pour les paramètres d'Open-Meteo
+interface OpenMeteoParams {
+	latitude: number;
+	longitude: number;
+	current?: string[];
+	timezone?: string;
+	[key: string]: unknown;
+}
+
 // mock du SDK openmeteo
 mock.module("openmeteo", () => ({
-	fetchWeatherApi: mock(async (_url: string, _params: any) => {
-		const arr = toCurrentArray(baseLyon());
-		return makeOpenMeteoResponse(arr);
-	}),
+	fetchWeatherApi: mock(
+		async (
+			_url: string,
+			_params: OpenMeteoParams,
+		): Promise<OpenMeteoResponse[]> => {
+			const arr = toCurrentArray(baseLyon());
+			return makeOpenMeteoResponse(arr);
+		},
+	),
 }));
 
 // mock du fetch global (géocodage)
 const realFetch = globalThis.fetch;
 beforeEach(() => {
-	globalThis.fetch = mock(async (input: RequestInfo) => {
+	globalThis.fetch = mock(async (input: RequestInfo): Promise<Response> => {
 		const url = String(input);
 		if (url.includes("geocoding-api.open-meteo.com")) {
 			return new Response(JSON.stringify(makeGeoJson(45.76, 4.83)), {
@@ -28,7 +43,7 @@ beforeEach(() => {
 			});
 		}
 		return new Response("Not mocked", { status: 500 });
-	}) as any;
+	}) as unknown as typeof fetch;
 });
 afterEach(() => {
 	globalThis.fetch = realFetch;
@@ -36,8 +51,13 @@ afterEach(() => {
 
 describe("WeatherNow façade (bun:test)", () => {
 	it("byCoords → emoji + texte (FR)", async () => {
-		(fetchWeatherApi as any).mockResolvedValueOnce(
-			makeOpenMeteoResponse(toCurrentArray(baseLyon({ weathercode: 63 }))),
+		const mockFetch = fetchWeatherApi as unknown as ReturnType<
+			typeof mock<typeof fetchWeatherApi>
+		>;
+		mockFetch.mockResolvedValueOnce(
+			makeOpenMeteoResponse(
+				toCurrentArray(baseLyon({ weathercode: 63 })),
+			) as never,
 		);
 
 		const wx = new WeatherDescribe({ lang: "fr", timezone: "auto" });
@@ -52,8 +72,13 @@ describe("WeatherNow façade (bun:test)", () => {
 	});
 
 	it("byCity → géocode puis appelle byCoords (EN)", async () => {
-		(fetchWeatherApi as any).mockResolvedValueOnce(
-			makeOpenMeteoResponse(toCurrentArray(baseLyon({ weathercode: 0 }))),
+		const mockFetch = fetchWeatherApi as unknown as ReturnType<
+			typeof mock<typeof fetchWeatherApi>
+		>;
+		mockFetch.mockResolvedValueOnce(
+			makeOpenMeteoResponse(
+				toCurrentArray(baseLyon({ weathercode: 0 })),
+			) as never,
 		);
 
 		const wx = new WeatherDescribe({ lang: "en" });
