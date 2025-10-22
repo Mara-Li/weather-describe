@@ -32,7 +32,9 @@
 		"lint": "biome format --write src/",
 		"check": "tsc --noEmit",
 		"test": "bun test",
-		"release": "commit-and-tag-version"
+		"prerelease": "bun run build",
+		"release": "commit-and-tag-version",
+		"postrelease": "bun publish"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.2.7",
