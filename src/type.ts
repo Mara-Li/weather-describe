@@ -51,7 +51,7 @@ export const WEATHER_CODE_EMOJI: Record<number, string> = {
 	99: "⛈️", // Thunderstorm with heavy hail
 };
 
-export interface WeatherNowOptions {
+export interface WeatherDescribeOptions {
 	/**
 	 * Langue for the weather description
 	 */
@@ -71,3 +71,38 @@ export interface WeatherNowOptions {
 	 */
 	cacheTtlMs?: number;
 }
+
+export interface WeatherDescribeResult {
+	/**
+	 * Emoji representing the current weather condition
+	 */
+	emoji: string;
+	/**
+	 * Textual description of the current weather
+	 */
+	text: string;
+	/**
+	 * Current weather data
+	 */
+	current: Weather;
+}
+
+type APIOptions = {
+	/**
+	 * Language for the text description
+	 */
+	lang?: Language;
+};
+
+export type ByCoordsOptions = APIOptions & {
+	/**
+	 * City name for description context (e.g., "Paris" for coordinates in Paris)
+	 */
+	cityName?: string;
+};
+export type ByCityOptions = APIOptions & {
+	/**
+	 * Optional country code to refine city search (e.g., "US" for United States)
+	 */
+	countryCode?: string;
+};

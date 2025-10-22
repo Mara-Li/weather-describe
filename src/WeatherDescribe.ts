@@ -4,9 +4,12 @@ import i18next from "i18next";
 import { fetchWeatherApi } from "openmeteo";
 import { type Language, resources } from "./i18next.ts";
 import {
+	type ByCityOptions,
+	type ByCoordsOptions,
 	WEATHER_CODE_EMOJI,
 	type Weather,
-	type WeatherNowOptions,
+	type WeatherDescribeOptions,
+	type WeatherDescribeResult,
 } from "./type.ts";
 
 export class WeatherDescribe {
@@ -56,7 +59,12 @@ export class WeatherDescribe {
 		}
 	>();
 
-	constructor(opts: WeatherNowOptions = {}) {
+	/**
+	 * Create a WeatherDescribe instance
+	 * Gets current weather and describes it in text and emoji.
+	 * @param opts {WeatherDescribeOptions} Options
+	 */
+	constructor(opts: WeatherDescribeOptions = {}) {
 		this.lang = opts.lang ?? "en";
 		this.timezone = opts.timezone ?? "auto";
 		this.defaultCity = opts.defaultCity;
@@ -284,36 +292,14 @@ export class WeatherDescribe {
 	 * Get weather description by coordinates
 	 * @param lat {number} Latitude
 	 * @param lon {number} Longitude
-	 * @param opts { lang?: Language; cityName?: string } Optional parameters
-	 * @returns {Promise<{ emoji: string; text: string; current: Weather }>} Weather description
+	 * @param opts { ByCoordsOptions } Optional parameters
+	 * @returns {Promise<WeatherDescribeResult>} Weather description
 	 */
 	async byCoords(
 		lat: number,
 		lon: number,
-		opts?: {
-			/**
-			 * Language for description
-			 */
-			lang?: Language;
-			/**
-			 * City name to include in description
-			 */
-			cityName?: string;
-		},
-	): Promise<{
-		/**
-		 * Emoji representing the weather condition
-		 */
-		emoji: string;
-		/**
-		 * Textual weather description
-		 */
-		text: string;
-		/**
-		 * Current weather data
-		 */
-		current: Weather;
-	}> {
+		opts?: ByCoordsOptions,
+	): Promise<WeatherDescribeResult> {
 		const lang = opts?.lang ?? this.lang;
 		await this.ensureI18n(lang);
 		const cur = await this.fetchCurrent(lat, lon, lang);
@@ -325,35 +311,13 @@ export class WeatherDescribe {
 	/**
 	 * Get weather description by city name
 	 * @param city {string} City name
-	 * @param opts { countryCode?: string; lang?: Language } Optional parameters
-	 * @returns {Promise<{ emoji: string; text: string; current: Weather }>} Weather description
+	 * @param opts {ByCityOptions} Optional parameters
+	 * @returns {Promise<WeatherDescribeResult>} Weather description
 	 */
 	async byCity(
 		city?: string,
-		opts?: {
-			/**
-			 * Country code to refine geocoding (e.g., "FR" for France)
-			 */
-			countryCode?: string;
-			/**
-			 * Language for description
-			 */
-			lang?: Language;
-		},
-	): Promise<{
-		/**
-		 * Emoji representing the weather condition
-		 */
-		emoji: string;
-		/**
-		 * Textual weather description
-		 */
-		text: string;
-		/**
-		 * Current weather data
-		 */
-		current: Weather;
-	}> {
+		opts?: ByCityOptions,
+	): Promise<WeatherDescribeResult> {
 		const target = city ?? this.defaultCity;
 		if (!target) throw new Error("Aucune ville fournie.");
 		const lang = opts?.lang ?? this.lang;

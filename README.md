@@ -91,7 +91,7 @@ weather.setTimezone('Europe/Paris');
 ### Constructor Options
 
 ```typescript
-interface WeatherNowOptions {
+interface WeatherDescribeOptions {
   lang?: 'en' | 'fr';        // Default: 'fr'
   timezone?: string;         // Default: 'auto'
   defaultCity?: string;      // Default city for byCity() without params
