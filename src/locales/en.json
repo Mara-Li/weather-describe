@@ -1,0 +1,55 @@
+{
+  "weather": {
+    "code": {
+      "0": "Clear sky",
+      "1": "Mainly clear",
+      "2": "Partly cloudy",
+      "3": "Overcast",
+      "45": "Fog",
+      "48": "Depositing rime fog",
+      "51": "Light drizzle",
+      "53": "Moderate drizzle",
+      "55": "Dense drizzle",
+      "56": "Light freezing drizzle",
+      "57": "Dense freezing drizzle",
+      "61": "Light rain",
+      "63": "Moderate rain",
+      "65": "Heavy rain",
+      "66": "Light freezing rain",
+      "67": "Heavy freezing rain",
+      "71": "Light snow",
+      "73": "Moderate snow",
+      "75": "Heavy snow",
+      "77": "Snow grains",
+      "80": "Light showers",
+      "81": "Moderate showers",
+      "82": "Heavy showers",
+      "85": "Light snow showers",
+      "86": "Heavy snow showers",
+      "95": "Thunderstorm",
+      "96": "Thunderstorm with slight hail",
+      "99": "Thunderstorm with heavy hail"
+    }
+  },
+  "dir": {
+    "N":"north","NNE":"north-northeast","NE":"northeast","ENE":"east-northeast",
+    "E":"east","ESE":"east-southeast","SE":"southeast","SSE":"south-southeast",
+    "S":"south","SSW":"south-southwest","SW":"southwest","WSW":"west-southwest",
+    "W":"west","WNW":"west-northwest","NW":"northwest","NNW":"north-northwest"
+  },
+  "sentence": {
+    "head": "{{city, default()}}It is {{temp}}°C{{cond, default()}}",
+    "city": "In {{city}} · ",
+    "cond": " ({{cond}})",
+    "feels": "feels like {{feels}}°C",
+    "wind": "wind {{speed}} km/h{{dir, default()}}{{gust, default()}}",
+    "wind.dir": " from the {{dir}}",
+    "wind.gust": " (gusts {{gust}} km/h)",
+    "precip.none": "no precipitation",
+    "precip.rain": "precipitation: {{mm}} mm",
+    "precip.snow": "snow: {{cm}} cm",
+    "humidity": "humidity {{pct}}%",
+    "clouds": "cloud cover {{pct}}%",
+    "visibility": "visibility {{km}} km"
+  }
+}

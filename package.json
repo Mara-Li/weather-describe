@@ -1,0 +1,17 @@
+{
+  "name": "weather-describe",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@biomejs/biome": "^2.2.7",
+    "i18next": "^25.6.0",
+    "openmeteo": "^1.2.1"
+  }
+}
