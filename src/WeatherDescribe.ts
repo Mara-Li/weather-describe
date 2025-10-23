@@ -204,8 +204,18 @@ export class WeatherDescribe {
 			);
 		else parts.push(t("sentence.precip.none"));
 
-		if (typeof current.relative_humidity_2m === "number")
-			parts.push(t("sentence.humidity", { pct: current.relative_humidity_2m }));
+		if (typeof current.relative_humidity_2m === "number") {
+			const pct = current.relative_humidity_2m;
+			let key: string;
+
+			if (pct >= 85) key = "humidity.very_high";
+			else if (pct >= 70) key = "humidity.high";
+			else if (pct >= 45) key = "humidity.medium";
+			else if (pct >= 25) key = "humidity.low";
+			else key = "humidity.very_low";
+
+			parts.push(t(`sentence.${key}`, { pct }));
+		}
 
 		if (typeof current.cloud_cover === "number")
 			parts.push(t("sentence.clouds", { pct: current.cloud_cover }));

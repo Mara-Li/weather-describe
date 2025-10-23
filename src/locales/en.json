@@ -1,34 +1,27 @@
 {
 	"weather": {
 		"code": {
-			"0": "Clear sky",
-			"1": "Mainly clear",
-			"2": "Partly cloudy",
-			"3": "Overcast",
-			"45": "Fog",
-			"48": "Depositing rime fog",
-			"51": "Light drizzle",
-			"53": "Moderate drizzle",
-			"55": "Dense drizzle",
-			"56": "Light freezing drizzle",
-			"57": "Dense freezing drizzle",
-			"61": "Light rain",
-			"63": "Moderate rain",
-			"65": "Heavy rain",
-			"66": "Light freezing rain",
-			"67": "Heavy freezing rain",
-			"71": "Light snow",
-			"73": "Moderate snow",
-			"75": "Heavy snow",
-			"77": "Snow grains",
-			"80": "Light showers",
-			"81": "Moderate showers",
-			"82": "Heavy showers",
-			"85": "Light snow showers",
-			"86": "Heavy snow showers",
-			"95": "Thunderstorm",
-			"96": "Thunderstorm with slight hail",
-			"99": "Thunderstorm with heavy hail"
+			"0": "clear skies",
+			"1": "mostly clear skies",
+			"2": "partly cloudy skies",
+			"3": "overcast skies",
+			"45": "fog",
+			"48": "freezing fog",
+			"51": "light drizzle",
+			"53": "moderate drizzle",
+			"55": "heavy drizzle",
+			"61": "light rain",
+			"63": "moderate rain",
+			"65": "heavy rain",
+			"71": "light snowfall",
+			"73": "moderate snowfall",
+			"75": "heavy snowfall",
+			"80": "light showers",
+			"81": "moderate showers",
+			"82": "heavy showers",
+			"95": "a thunderstorm",
+			"96": "a thunderstorm with small hail",
+			"99": "a thunderstorm with heavy hail"
 		}
 	},
 	"dir": {
@@ -70,16 +63,16 @@
 	"sentence": {
 		"head": {
 			"no_city": {
-				"long": "It’s currently {{temp}}°C{{cond}}.",
+				"long": "The forecast calls for {{cond}}, and it's currently {{temp}}°C.",
 				"short": ""
 			},
 			"with_city": {
-				"long": "In {{city}}, it’s currently {{temp}}°C{{cond}}.",
+				"long": "In {{city}}, the forecast calls for {{cond}}, and it's currently {{temp}}°C.",
 				"short": "{{city}}: "
 			}
 		},
 		"city": "In {{city}}, ",
-		"cond": " ({{cond}})",
+		"cond": "{{cond}}",
 		"feels": "It feels like {{feels}}°C.",
 		"wind": "Winds are blowing from the {{dir}} at {{speed}} km/h{{gust}}.",
 		"wind.dir": "{{dir}}",
@@ -87,9 +80,15 @@
 		"precip.none": "No precipitation expected.",
 		"precip.rain": "Rainfall of around {{mm}} mm.",
 		"precip.snow": "Snow accumulation near {{cm}} cm.",
-		"humidity": "Humidity at {{pct}}%.",
-		"clouds": "Cloud cover about {{pct}}%.",
-		"visibility": "Visibility around {{km}} km.",
-		"short": "{{city}}{{temp}}°C, {{cond}}, wind {{speed}} km/h ({{dir}})"
+		"humidity": {
+			"very_high": "The air is very humid, around {{pct}}%.",
+			"high": "Humidity is about {{pct}}%.",
+			"medium": "Moderate humidity, around {{pct}}%.",
+			"low": "The air is dry, with humidity near {{pct}}%.",
+			"very_low": "The air is particularly dry, only {{pct}}%."
+		},
+		"clouds": "Cloud cover about {{pct}}%,",
+		"visibility": "and visibility around {{km}} km.",
+		"short": "{{city}}The forecast calls for {{cond}}, it's currently {{temp}}°C, with a wind of {{speed}} km/h ({{dir}})."
 	}
 }

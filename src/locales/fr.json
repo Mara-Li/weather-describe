@@ -1,34 +1,27 @@
 {
 	"weather": {
 		"code": {
-			"0": "Ciel clair",
-			"1": "Principalement dégagé",
-			"2": "Partiellement nuageux",
-			"3": "Couvert",
-			"45": "Brouillard",
-			"48": "Brouillard givrant",
-			"51": "Légère bruine",
-			"53": "Bruine modérée",
-			"55": "Forte bruine",
-			"56": "Légère bruine verglaçante",
-			"57": "Forte bruine verglaçante",
-			"61": "Faible pluie",
-			"63": "Pluie modérée",
-			"65": "Forte pluie",
-			"66": "Légère pluie verglaçante",
-			"67": "Forte pluie verglaçante",
-			"71": "Faibles chutes de neige",
-			"73": "Chutes de neige modérées",
-			"75": "Fortes chutes de neige",
-			"77": "Neige en grains",
-			"80": "Faible averse",
-			"81": "Averse modérée",
-			"82": "Forte averse",
-			"85": "Faible averse de neige",
-			"86": "Forte averse de neige",
-			"95": "Orage",
-			"96": "Orage avec une légère grêle",
-			"99": "Orage avec une forte grêle"
+			"0": "un ciel dégagé",
+			"1": "un temps majoritairement clair",
+			"2": "un ciel partiellement nuageux",
+			"3": "un ciel couvert",
+			"45": "du brouillard",
+			"48": "du brouillard givrant",
+			"51": "de la bruine légère",
+			"53": "de la bruine modérée",
+			"55": "de la bruine dense",
+			"61": "de la pluie légère",
+			"63": "de la pluie modérée",
+			"65": "de la pluie forte",
+			"71": "des chutes de neige légères",
+			"73": "des chutes de neige modérées",
+			"75": "de fortes chutes de neige",
+			"80": "des averses légères",
+			"81": "des averses modérées",
+			"82": "des averses fortes",
+			"95": "un orage",
+			"96": "un orage avec grêle légère",
+			"99": "un orage avec forte grêle"
 		}
 	},
 	"dir": {
@@ -70,26 +63,32 @@
 	"sentence": {
 		"head": {
 			"no_city": {
-				"long": "Il fait actuellement {{temp}}°C{{cond}}.",
+				"long": "On a prévu {{cond}} et il fait actuellement {{temp}}°C.",
 				"short": ""
 			},
 			"with_city": {
-				"long": "À {{city}}, il fait actuellement {{temp}}°C{{cond}}.",
+				"long": "À {{city}}, on a prévu {{cond}} et il fait actuellement {{temp}}°C.",
 				"short": "{{city}} : "
 			}
 		},
 		"city": "À {{city}}, ",
-		"cond": " ({{cond}})",
+		"cond": "{{cond}}",
 		"feels": "La température ressentie est de {{feels}}°C.",
 		"wind": "Le vent souffle depuis {{dir}} à {{speed}} km/h{{gust}}.",
 		"wind.dir": "{{dir}}",
 		"wind.gust": ", avec des rafales pouvant atteindre {{gust}} km/h",
-		"precip.none": "Aucune précipitation n'est attendue.",
-		"precip.rain": "Précipitations d’environ {{mm}} mm.",
-		"precip.snow": "Chutes de neige estimées à {{cm}} cm.",
-		"humidity": "Humidité à {{pct}}%.",
-		"clouds": "Couverture nuageuse d’environ {{pct}}%.",
-		"visibility": "Visibilité estimée à {{km}} km.",
-		"short": "{{city}}{{temp}}°C, {{cond}}, vent de {{speed}} km/h ({{dir}})"
+		"precip.none": "Aucune précipitation n'est attendue,",
+		"precip.rain": "On attend environ {{mm}}mm de précipitions.",
+		"precip.snow": "On attend {{cm}} cm de chutes de neige.",
+		"humidity": {
+			"very_high": "L’air est très humide, avec un taux d’environ {{pct}}%.",
+			"high": "L’humidité de l’air est de {{pct}}%.",
+			"medium": "L’humidité est modérée, à environ {{pct}}%.",
+			"low": "L’air est sec, avec une humidité d’environ {{pct}}%.",
+			"very_low": "L’air est particulièrement sec, à seulement {{pct}}%."
+		},
+		"clouds": "La couverture nuageuse est d’environ {{pct}}%,",
+		"visibility": "et la visibilité est estimée à {{km}} km.",
+		"short": "{{city}}La température est de {{temp}}°C. Il est prévu {{cond}} avec un vent de {{speed}} km/h ({{dir}})."
 	}
 }
