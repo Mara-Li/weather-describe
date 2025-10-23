@@ -1,6 +1,6 @@
 {
 	"name": "weather-describe",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "A TypeScript library that provides weather descriptions based on Open-Meteo API data, utilizing i18next for localization support.",
 	"author": "Mara-Li",
 	"license": "MIT",

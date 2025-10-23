@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.4](https://github.com/Mara-Li/weather-describe/compare/1.0.3...1.0.4) (2025-10-23)
+
+
+### Bug Fixes
+
+* improve weather descriptions and humidity messages in English and French translations ([428c0e4](https://github.com/Mara-Li/weather-describe/commit/428c0e470542efa51b9b8b2d61381a2cf94b8f08))
+
 ## [1.0.3](https://github.com/Mara-Li/weather-describe/compare/1.0.2...1.0.3) (2025-10-22)
 
 
