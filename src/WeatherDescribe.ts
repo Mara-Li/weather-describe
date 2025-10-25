@@ -11,6 +11,7 @@ import {
 	type WeatherDescribeOptions,
 	type WeatherDescribeResult,
 } from "./type.ts";
+import "uniformize";
 
 export class WeatherDescribe {
 	/**
@@ -155,7 +156,7 @@ export class WeatherDescribe {
 		const headKey = city ? "sentence.head.with_city" : "sentence.head.no_city";
 
 		const head = t(`${headKey}.long`, {
-			city,
+			city: city?.toTitle(),
 			temp:
 				typeof current.temperature_2m === "number"
 					? Math.round(current.temperature_2m)
@@ -265,7 +266,7 @@ export class WeatherDescribe {
 		const cityKey = city ? "sentence.head.with_city" : "sentence.head.no_city";
 
 		return t("sentence.short", {
-			city: t(`${cityKey}.short`, { city }),
+			city: t(`${cityKey}.short`, { city: city?.toTitle() }),
 			temp,
 			cond: condTest,
 			dir,
