@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.5](https://github.com/Mara-Li/weather-describe/compare/1.0.4...1.0.5) (2025-10-25)
+
 ## [1.0.4](https://github.com/Mara-Li/weather-describe/compare/1.0.3...1.0.4) (2025-10-23)
 
 
